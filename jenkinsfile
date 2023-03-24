@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/union-intersect-minus-using_oops']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prjpracticeteam/python_project_using_docker.git']])
+            }
+        }
+        stage('Pull code'){
+            steps{
+                git branch: 'union-intersect-minus-using_oops', url: 'https://github.com/prjpracticeteam/python_project_using_docker.git'
+            }
+        }
+        stage('Running image'){
+            steps{
+                sh 'docker build -t ActivePython3:pythonproj3 .'
+                sh 'docker run -d -p 80:80 ActivePython3:pythonproj3'
+            }
+        }
+    }
+}
