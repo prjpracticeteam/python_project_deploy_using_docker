@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Running image'){
             steps{
-                sh 'docker build .'
+                sh 'docker build -t ActivePython3:pythonproj3 .'
+                sh 'docker run -d -p 80:80 ActivePython3:pythonproj3'
             }
         }
     }
